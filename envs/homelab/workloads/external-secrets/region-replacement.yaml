@@ -1,0 +1,10 @@
+source:
+  kind: ConfigMap
+  name: env
+  fieldPath: data.region
+targets:
+- select:
+    name: ssm-cluster-secret-store
+    kind: ClusterSecretStore
+  fieldPaths:
+  - spec.provider.aws.region

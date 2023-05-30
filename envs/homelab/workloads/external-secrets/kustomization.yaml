@@ -4,10 +4,8 @@ kind: Kustomization
 namespace: external-secrets
 
 resources:
-  - ../../../../bases/external-secrets/crds
+  - ../../../../variants/homelab-us-east-2
   - ../../../../bases/external-secrets/base
 
-
 replacements:
-
-  # add replacement for region in for ClusterSecretStore region
+  - path: region-replacement.yaml
