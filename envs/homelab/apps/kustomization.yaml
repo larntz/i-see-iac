@@ -9,3 +9,4 @@ resources:
   - ./argocd.yaml
   - ./cert-manager.yaml
   - ./external-secrets.yaml
+  - ./arc.yaml

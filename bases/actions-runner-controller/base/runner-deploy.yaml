@@ -1,0 +1,81 @@
+---
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: HorizontalRunnerAutoscaler
+metadata:
+  name: gitops-demo-runnerdeploy-autoscaler
+spec:
+  scaleDownDelaySecondsAfterScaleOut: 60
+  scaleTargetRef:
+    kind: RunnerDeployment
+    name: gitops-demo-runnerdeploy
+  minReplicas: 0
+  maxReplicas: 1
+  metrics:
+  - type: TotalNumberOfQueuedAndInProgressWorkflowRuns
+    repositoryNames:
+    - gitops-demo
+---
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: RunnerDeployment
+metadata:
+  name: gitops-demo-runnerdeploy
+spec:
+  template:
+    spec:
+      repository: larntz/gitops-demo
+      labels:
+        - pies
+---
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: HorizontalRunnerAutoscaler
+metadata:
+  name: status-check-runnerdeploy-autoscaler
+spec:
+  scaleDownDelaySecondsAfterScaleOut: 60
+  scaleTargetRef:
+    kind: RunnerDeployment
+    name: status-check-runnerdeploy
+  minReplicas: 0
+  maxReplicas: 1
+  metrics:
+  - type: TotalNumberOfQueuedAndInProgressWorkflowRuns
+    repositoryNames:
+    - status-check
+---
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: RunnerDeployment
+metadata:
+  name: status-check-runnerdeploy
+spec:
+  template:
+    spec:
+      repository: larntz/status-check
+      labels:
+        - pies
+---
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: HorizontalRunnerAutoscaler
+metadata:
+  name: artui-runnerdeploy-autoscaler
+spec:
+  scaleDownDelaySecondsAfterScaleOut: 60
+  scaleTargetRef:
+    kind: RunnerDeployment
+    name: artui-runnerdeploy
+  minReplicas: 0
+  maxReplicas: 1
+  metrics:
+  - type: TotalNumberOfQueuedAndInProgressWorkflowRuns
+    repositoryNames:
+    - artui
+---
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: RunnerDeployment
+metadata:
+  name: artui-runnerdeploy
+spec:
+  template:
+    spec:
+      repository: larntz/artui
+      labels:
+        - pies

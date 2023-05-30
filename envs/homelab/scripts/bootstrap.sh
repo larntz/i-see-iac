@@ -13,6 +13,10 @@ SOURCE_DIR=$(dirname "${BASH_SOURCE[0]}")
 # 
 kubectl apply -k "$SOURCE_DIR/../crds"
 
+# actions runner crds need to be applied using --server-side 
+# see: https://github.com/actions/actions-runner-controller/issues/2565
+kubectl apply --server-side -k "$SOURCE_DIR../../../bases/actions-runner-controller/crds"
+
 # 
 # argocd
 #
