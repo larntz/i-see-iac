@@ -1,0 +1,10 @@
+source:
+  kind: ConfigMap
+  name: env
+  fieldPath: data.region
+targets:
+- select:
+    name: letsencrypt-issuer
+    kind: ClusterIssuer
+  fieldPaths:
+  - spec.acme.solvers.0.dns01.route53.region

@@ -4,5 +4,25 @@ kind: Kustomization
 namespace: cert-manager
 
 resources:
-  - ../../../../bases/cert-manager/crds
+  - ../../../../variants/homelab-us-east-2
   - ../../../../bases/cert-manager/base
+
+patches:
+  - target: 
+      kind: ClusterIssuer
+      name: letsencrypt-issuer
+    patch: |-
+      - op: add
+        path: /spec/acme/solvers/0/selector/dnsZones
+        value: 
+          - homelab.blue42.net
+      - op: add
+        path: /spec/acme/email
+        value: "larntz+le-homelab@gmail.com"
+      - op: add
+        path: /spec/acme/solvers/0/dns01/route53/hostedZoneID
+        value: "Z00886942MTJHHX2XZA72"
+
+replacements:
+  - path: region-replacement.yaml
+  - path: environment-replacement.yaml

@@ -4,5 +4,8 @@ kind: Kustomization
 namespace: argocd
 
 resources:
-  - ../../../../bases/argocd/crds
+  - ../../../../variants/homelab-us-east-2
   - ../../../../bases/argocd/base
+
+replacements:
+  - path: environment-replacement.yaml

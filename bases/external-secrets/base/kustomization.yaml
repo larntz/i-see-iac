@@ -3,8 +3,10 @@ kind: Kustomization
 
 resources:
   - ./namespace.yaml
+  - ./secret.yaml
   - ./rbac.yaml
   - ./service-account.yaml
   - ./service.yaml
   - ./webhook.yaml
   - ./workloads.yaml
+  - ./parameter-secret-store.yaml

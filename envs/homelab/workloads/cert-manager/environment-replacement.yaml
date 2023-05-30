@@ -1,0 +1,15 @@
+source:
+  kind: ConfigMap
+  name: env
+  fieldPath: data.environment
+targets:
+- select:
+    name: aws-credentials
+    kind: ExternalSecret
+  fieldPaths:
+    - spec.dataFrom.0.find.path
+    - spec.dataFrom.0.find.name.regexp
+    - spec.dataFrom.0.rewrite.0.regexp.source
+  options:
+    delimiter: '/'
+    index: 1

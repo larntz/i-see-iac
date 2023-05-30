@@ -8,3 +8,5 @@ resources:
   - ./service.yaml
   - ./webhook.yaml
   - ./workloads.yaml
+  - ./external-secrets.yaml
+  - ./letsencrypt-issuer.yaml
