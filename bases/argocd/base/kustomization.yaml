@@ -8,6 +8,7 @@ resources:
 - ./applicationset-controller
 - ./repo-server
 - ./redis
+- ./external-secrets.yaml
 
 images:
 - name: quay.io/argoproj/argocd
