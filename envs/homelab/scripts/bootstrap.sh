@@ -11,9 +11,7 @@ SOURCE_DIR=$(dirname "${BASH_SOURCE[0]}")
 #
 # crds
 # 
-kubectl apply -k "$SOURCE_DIR/../../../bases/argocd/crds"
-kubectl apply -k "$SOURCE_DIR/../../../bases/cert-manager/crds"
-kubectl apply -k "$SOURCE_DIR/../../../bases/external-secrets/crds"
+kubectl apply -k "$SOURCE_DIR/../crds"
 
 # 
 # argocd
@@ -34,7 +32,7 @@ kind: Secret
 metadata:
   name: aws-credentials
 data:
-  access-key: "$(echo -n "$CM_ACCESS_KEY" | base64 -w0)"
+  access-key-id: "$(echo -n "$CM_ACCESS_KEY" | base64 -w0)"
   secret-access-key: "$(echo -n "$CM_SECRET_ACCESS_KEY" | base64 -w0)"
 EOF
 )
@@ -56,7 +54,7 @@ kind: Secret
 metadata:
   name: aws-credentials
 data:
-  access-key: "$(echo -n "$ESO_ACCESS_KEY" | base64 -w0)"
+  access-key-id: "$(echo -n "$ESO_ACCESS_KEY" | base64 -w0)"
   secret-access-key: "$(echo -n "$ESO_SECRET_ACCESS_KEY" | base64 -w0)"
 EOF
 )
