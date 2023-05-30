@@ -17,7 +17,7 @@ spec:
           region: region
           accessKeyIDSecretRef:
             name: aws-credentials
-            key: access-key
+            key: access-key-id
           secretAccessKeySecretRef:
             name: aws-credentials
             key: secret-access-key
