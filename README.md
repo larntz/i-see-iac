@@ -19,3 +19,4 @@ This is currently a work in progress. The infrastructure created here will also 
 
 - [ ] Prometheus and Grafana
 - [ ] GitHub Actions workflows for `ssm-sync`. 
+- [ ] Do some more development on `ssm-sync` to make it more usable and demonstrate CICD workflows.
