@@ -1,0 +1,26 @@
+---
+- name: Set hostname
+  ansible.builtin.hostname:
+    name: "{{ inventory_hostname }}"
+
+- name: Install linux-modules-extra-raspi
+  apt:
+    name: "linux-modules-extra-raspi"
+    update_cache: true
+    state: latest
+  register: raspi_modules
+
+- name: Install updates
+  apt:
+    name: "*"
+    state: latest
+  register: update
+
+- name: Autoremove and Autoclean
+  apt:
+    autoremove: true
+    autoclean: true
+
+- name: reboot after update
+  reboot:
+  when: update.changed
