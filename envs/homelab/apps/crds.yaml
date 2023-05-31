@@ -10,7 +10,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    repoURL: git@github.com:larntz/gitops-demo.git
+    repoURL: git@github.com:larntz/i-see-iac.git
     path: envs/homelab/crds
     targetRevision: HEAD
   syncPolicy:
