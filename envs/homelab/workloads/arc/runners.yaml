@@ -8,7 +8,7 @@ spec:
   scaleTargetRef:
     kind: RunnerDeployment
     name: ssm-sync
-  minReplicas: 0
+  minReplicas: 1
   maxReplicas: 2
   metrics:
   - type: TotalNumberOfQueuedAndInProgressWorkflowRuns
@@ -22,6 +22,9 @@ metadata:
 spec:
   template:
     spec:
+      containers:
+        - name: runner
+          image: summerwind/actions-runner:ubuntu-20.04
       repository: larntz/ssm-sync
       labels:
         - homelab
