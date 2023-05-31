@@ -1,0 +1,27 @@
+---
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: HorizontalRunnerAutoscaler
+metadata:
+  name: ssm-sync
+spec:
+  scaleDownDelaySecondsAfterScaleOut: 120
+  scaleTargetRef:
+    kind: RunnerDeployment
+    name: ssm-sync
+  minReplicas: 0
+  maxReplicas: 2
+  metrics:
+  - type: TotalNumberOfQueuedAndInProgressWorkflowRuns
+    repositoryNames:
+    - ssm-sync
+---
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: RunnerDeployment
+metadata:
+  name: ssm-sync
+spec:
+  template:
+    spec:
+      repository: larntz/ssm-sync
+      labels:
+        - homelab
