@@ -6,6 +6,7 @@ namespace: actions-runner-system
 resources:
   - ../../../../variants/homelab-us-east-2
   - ../../../../bases/actions-runner-controller/base
+  - ./runners.yaml
 
 replacements:
   - path: ./environment-replacement.yaml
