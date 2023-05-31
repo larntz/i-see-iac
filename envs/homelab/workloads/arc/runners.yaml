@@ -8,7 +8,7 @@ spec:
   scaleTargetRef:
     kind: RunnerDeployment
     name: ssm-sync
-  minReplicas: 1
+  minReplicas: 0
   maxReplicas: 2
   metrics:
   - type: TotalNumberOfQueuedAndInProgressWorkflowRuns
