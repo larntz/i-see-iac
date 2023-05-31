@@ -1,0 +1,13 @@
+---
+- hosts: all
+  order: inventory
+  serial: 1
+  vars:
+    k3s_version: "v1.26.5+k3s1"
+    k3s_token: "{{ lookup('env','K3S_TOKEN', default=Undefined) }}"
+    domain: "dhcp.chacarntz.net"
+    loadbalancer_url: "cluster.chacarntz.net"
+  become: true
+  roles: 
+    - os
+    - k3s

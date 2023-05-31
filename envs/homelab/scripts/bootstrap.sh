@@ -15,17 +15,17 @@ kubectl apply -k "$SOURCE_DIR/../crds"
 
 # actions runner crds need to be applied using --server-side 
 # see: https://github.com/actions/actions-runner-controller/issues/2565
-kubectl apply --server-side -k "$SOURCE_DIR../../../bases/actions-runner-controller/crds"
+kubectl apply --server-side -k "$SOURCE_DIR/../../../bases/actions-runner-controller/crds"
 
 # 
 # argocd
 #
-kubectl apply -k "$SOURCE_DIR/../workloads/argocd"
+kubectl apply -k "$SOURCE_DIR/../../../envs/homelab/workloads/argocd/"
 
 # 
 # cert-manager
 #
-kubectl apply -k "$SOURCE_DIR/../workloads/cert-manager"
+kubectl apply -k "$SOURCE_DIR/../../../envs/homelab/workloads/cert-manager/"
 
 CM_ACCESS_KEY=$(aws ssm get-parameter --name "/${ENVIRONMENT}/cert-manager/access-key-id" --profile "$ENVIRONMENT"| jq -r .Parameter.Value)
 CM_SECRET_ACCESS_KEY=$(aws ssm get-parameter --name "/${ENVIRONMENT}/cert-manager/secret-access-key"  --profile "$ENVIRONMENT" | jq -r .Parameter.Value)
@@ -47,7 +47,7 @@ echo "$CM_INITIAL_SECRET" | kubectl apply -n cert-manager -f-
 #
 # external-secrets
 #
-kubectl apply -k "$SOURCE_DIR/../workloads/external-secrets"
+kubectl apply -k "$SOURCE_DIR/../../../envs/homelab/workloads/external-secrets"
 
 ESO_ACCESS_KEY=$(aws ssm get-parameter --name "/${ENVIRONMENT}/external-secrets/access-key-id" --profile "$ENVIRONMENT"| jq -r .Parameter.Value)
 ESO_SECRET_ACCESS_KEY=$(aws ssm get-parameter --name "/${ENVIRONMENT}/external-secrets/secret-access-key"  --profile "$ENVIRONMENT" | jq -r .Parameter.Value)
@@ -64,3 +64,9 @@ EOF
 )
 
 echo "$ESO_INITIAL_SECRET" | kubectl apply -n external-secrets -f-
+
+#
+# bootstrap that apps
+#
+kubectl apply -k "$SOURCE_DIR/../../../envs/homelab/apps"
+

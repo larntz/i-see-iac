@@ -1,0 +1,32 @@
+---
+- name: verify K3S_TOKEN is defined
+  assert:
+    that: 
+      - k3s_token is defined
+      - k3s_token != None
+
+- name: control plane
+  shell: 'curl -sfL https://get.k3s.io | K3S_TOKEN="{{ k3s_token }}" INSTALL_K3S_VERSION="{{ k3s_version }}" sh  -s - server --cluster-init --tls-san {{ loadbalancer_url }}'
+  no_log: true
+  when: "'control_plane' in group_names"
+
+- name: fetch kubeconfig
+  ansible.builtin.fetch:
+    flat: true
+    src: /etc/rancher/k3s/k3s.yaml
+    dest: /home/larntz/.kube/config
+  when: "'control_plane' in group_names and inventory_hostname == groups.control_plane[0]"
+
+- name: replace server in kubeconfig
+  ansible.builtin.replace:
+    path: /home/larntz/.kube/config
+    regexp: 'https://127.0.0.1:6443'
+    replace: 'https://{{ loadbalancer_url }}:6443'
+  become: false
+  delegate_to: localhost
+  when: "'control_plane' in group_names and inventory_hostname == groups.control_plane[0]"
+
+- name: secondary nodes
+  shell: 'curl -sfL https://get.k3s.io | K3S_TOKEN="{{ k3s_token }}" INSTALL_K3S_VERSION="{{ k3s_version }}" sh -s - server --server https://{{ loadbalancer_url }}:6443 --tls-san {{ loadbalancer_url }}'
+  no_log: true
+  when: "'secondary' in group_names"
