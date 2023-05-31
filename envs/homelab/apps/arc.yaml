@@ -11,7 +11,7 @@ spec:
     namespace: actions-runner-system
   project: default
   source:
-    repoURL: git@github.com:larntz/gitops-demo.git
+    repoURL: git@github.com:larntz/i-see-iac.git
     path: envs/homelab/workloads/arc
     targetRevision: HEAD
   syncPolicy:
