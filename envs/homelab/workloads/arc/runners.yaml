@@ -4,7 +4,7 @@ kind: HorizontalRunnerAutoscaler
 metadata:
   name: ssm-sync
 spec:
-  scaleDownDelaySecondsAfterScaleOut: 120
+  scaleDownDelaySecondsAfterScaleOut: 600
   scaleTargetRef:
     kind: RunnerDeployment
     name: ssm-sync
